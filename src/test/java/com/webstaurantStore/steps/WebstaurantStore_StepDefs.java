@@ -41,7 +41,7 @@ public class WebstaurantStore_StepDefs {
     @Then("every product should have the word {string} in it's title")
     public void everyProductShouldHaveTheWordInItSTitle(String expectedWord) {
 
-        List<WebElement> pagesList = Driver.getDriver().findElements(By.xpath("//li[@class='inline-block leading-4 align-top']"));
+        List<WebElement> pagesList = Driver.getDriver().findElements(By.xpath("//nav[@aria-label='pagination']//a"));
 
         for (int i = 1; i < pagesList.size(); i++) {
 
