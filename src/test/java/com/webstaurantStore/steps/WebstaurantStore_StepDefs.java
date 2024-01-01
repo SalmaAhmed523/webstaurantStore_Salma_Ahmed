@@ -53,7 +53,7 @@ public class WebstaurantStore_StepDefs {
 
             for (int j = 0; j < itemsList.size(); j++) {
 
-                // GUIUtils.waitForClickablility(itemsList.get(i), 2000);
+               // GUIUtils.waitForClickability(itemsList.get(i), 2000);
 
                 itemsList.get(j).click();
 
@@ -75,7 +75,11 @@ public class WebstaurantStore_StepDefs {
 
         searchPage.lastPages.click();
 
-        itemsList.get(itemsList.size() - 1).click();
+       WebElement lastItemOnLIST = itemsList.get(itemsList.size() - 1);
+
+       //GUIUtils.waitForClickability(lastItemOnLIST,2000);
+
+        lastItemOnLIST.click();
 
         searchPage.addToCartButton.click();
 
