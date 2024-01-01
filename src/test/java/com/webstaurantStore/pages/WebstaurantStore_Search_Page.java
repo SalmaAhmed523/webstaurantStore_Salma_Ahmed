@@ -33,8 +33,8 @@ public class WebstaurantStore_Search_Page {
     @FindBy(xpath = "//span[@data-testid ='itemDescription']")
     public List<WebElement> itemsList;
 
-    @FindBy(xpath = "//span[@class='block font-semibold text-sm-1/2 leading-none mt-4 mb-0 max-h-10 hover:max-h-full min-h-10 overflow-hidden hover:overflow-visible text-center']")
-    public List<WebElement> itemsList2;
+   // @FindBy(xpath = "//span[@class='block font-semibold text-sm-1/2 leading-none mt-4 mb-0 max-h-10 //hover:max-h-full min-h-10 overflow-hidden hover:overflow-visible text-center']")
+    //``public List<WebElement> itemsList;
 
     @FindBy(xpath = "//input[@gtm-id='AddToCartATC']")
     public WebElement addToCartButton;

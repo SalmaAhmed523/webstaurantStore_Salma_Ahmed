@@ -75,9 +75,11 @@ public class WebstaurantStore_StepDefs {
 
         searchPage.lastPages.click();
 
-       WebElement lastItemOnLIST = itemsList.get(itemsList.size() - 1);
+       List<WebElement> lastPageList = Driver.getDriver().findElements(By.xpath("//span[@data-testid ='itemDescription']"));
 
-       //GUIUtils.waitForClickability(lastItemOnLIST,2000);
+        WebElement lastItemOnLIST = lastPageList.get(lastPageList.size()-1);
+
+        //GUIUtils.waitForClickability(lastItemOnLIST,2000);
 
         lastItemOnLIST.click();
 
