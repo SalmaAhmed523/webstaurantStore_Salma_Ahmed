@@ -53,7 +53,7 @@ public class WebstaurantStore_StepDefs {
 
             for (int j = 0; j < itemsList.size(); j++) {
 
-                GUIUtils.waitForClickablility(itemsList.get(i), 2000);
+               // GUIUtils.waitForClickablility(itemsList.get(i), 2000);
 
                 itemsList.get(j).click();
 
