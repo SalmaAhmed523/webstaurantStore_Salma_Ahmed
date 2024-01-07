@@ -98,7 +98,7 @@ public class WebstaurantStore_StepDefs {
     @Then("user should see item on the cart")
     public void userSeeItemOnTheCart() {
 
-        Assert.assertTrue("Item added to cart verification filed", searchPage.lastAddedItemToCart.isDisplayed());
+        Assert.assertTrue("Item added to cart verification failed", searchPage.lastAddedItemToCart.isDisplayed());
     }
 
 
@@ -114,7 +114,7 @@ public class WebstaurantStore_StepDefs {
 
         String actualEmptyCartMessage = searchPage.emptyCartMessage.getText();
 
-        Assert.assertEquals("Empty cart message verification filed", expectedEmptyCartMessage, actualEmptyCartMessage);
+        Assert.assertEquals("Empty cart message verification failed", expectedEmptyCartMessage, actualEmptyCartMessage);
     }
 
 
