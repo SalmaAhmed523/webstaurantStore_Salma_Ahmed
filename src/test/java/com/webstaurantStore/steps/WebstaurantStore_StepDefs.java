@@ -22,8 +22,6 @@ import java.util.NoSuchElementException;
 public class WebstaurantStore_StepDefs {
 
     WebstaurantStore_Search_Page searchPage = new WebstaurantStore_Search_Page();
-    List<WebElement> itemsList;
-
     ErrorCollector errorCollector = new ErrorCollector();
 
     @Given("user is on the search page")
