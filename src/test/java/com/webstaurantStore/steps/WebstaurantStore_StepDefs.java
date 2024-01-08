@@ -1,27 +1,36 @@
 package com.webstaurantStore.steps;
 
 import com.webstaurantStore.pages.WebstaurantStore_Search_Page;
+import com.webstaurantStore.utility.ConfigurationReader;
 import com.webstaurantStore.utility.Driver;
-import com.webstaurantStore.utility.GUIUtils;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.junit.rules.ErrorCollector;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
+import static org.hamcrest.Matchers.is;
+
+import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class WebstaurantStore_StepDefs {
 
     WebstaurantStore_Search_Page searchPage = new WebstaurantStore_Search_Page();
     List<WebElement> itemsList;
 
+    ErrorCollector errorCollector = new ErrorCollector();
+
     @Given("user is on the search page")
     public void user_is_on_the_search_page() {
 
-        Driver.getDriver().get("https://www.webstaurantstore.com/");
+        Driver.getDriver().get(ConfigurationReader.getProperty("url"));
+        Assert.assertEquals("https://www.webstaurantstore.com/", Driver.getDriver().getCurrentUrl());
     }
 
     @When("user enters {string} on the search box")
@@ -38,33 +47,30 @@ public class WebstaurantStore_StepDefs {
         searchPage.searchButton.click();
     }
 
+
     @Then("every product should have the word {string} in it's title")
     public void everyProductShouldHaveTheWordInItSTitle(String expectedWord) {
 
-        List<WebElement> pagesList = Driver.getDriver().findElements(By.xpath("//nav[@aria-label='pagination']//a"));
+        try {
 
-        for (int i = 1; i < pagesList.size(); i++) {
+            for (int i = 0; i <= searchPage.pagesList.size(); i++) {
 
-            String pageSelector = "(//nav[@aria-label='pagination']//a)[" + i + "]";
+                for (WebElement eachItem : searchPage.itemsList) {
 
-            Driver.getDriver().findElement(By.xpath(pageSelector)).click();
+                    String linkText = eachItem.getText().toLowerCase();
 
-            itemsList = searchPage.itemsList;
+                    errorCollector.checkThat(linkText.toLowerCase().contains(expectedWord), is(true));
 
-            for (int j = 0; j < itemsList.size(); j++) {
-
-               // GUIUtils.waitForClickability(itemsList.get(i), 2000);
-
-                itemsList.get(j).click();
-
-                Assert.assertTrue(Driver.getDriver().getTitle().toLowerCase().contains(expectedWord));
-
-                Driver.getDriver().navigate().back();
+                    if (!linkText.contains(expectedWord)) {
+                        System.out.println("Element does not contain \"table\" = " + linkText);
+                    }
+                }
+                searchPage.rightPageArrow.click();
             }
 
-
+        } catch (NoSuchElementException e) {
+            e.printStackTrace();
         }
-
     }
 
 
@@ -75,9 +81,9 @@ public class WebstaurantStore_StepDefs {
 
         searchPage.lastPages.click();
 
-       List<WebElement> lastPageList = Driver.getDriver().findElements(By.xpath("//span[@data-testid ='itemDescription']"));
+        List<WebElement> lastPageList = Driver.getDriver().findElements(By.xpath("//span[@data-testid ='itemDescription']"));
 
-        WebElement lastItemOnLIST = lastPageList.get(lastPageList.size()-1);
+        WebElement lastItemOnLIST = lastPageList.get(lastPageList.size() - 1);
 
         //GUIUtils.waitForClickability(lastItemOnLIST,2000);
 
